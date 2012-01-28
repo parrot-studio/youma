@@ -1,0 +1,20 @@
+:pinc:
+- m
+:pdec:
+- i
+:inc:
+- k
+:dec:
+- o
+:jmp:
+- M
+:ret:
+- I
+:clip:
+- K
+:paste:
+- O
+:out:
+- '!'
+:inp:
+- '?'
