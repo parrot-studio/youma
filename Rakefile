@@ -15,7 +15,7 @@ def valid_file?(file)
   true
 end
 
-desc 'help : help tasks'
+desc 'help : tasks help'
 task :help do
   puts <<-EOS
 tasks help:
@@ -25,7 +25,8 @@ create : create [ruby source | executable] file
   rake create:[source | execute] language_name define_file [-- opts]
 sample : sample execute
   rake sample:[each sample name]
-options help : rake [test | create]:help
+
+more helps : rake [test | create | sample]:help
   EOS
 end
 
@@ -134,7 +135,12 @@ namespace :create do
       end
     end
 
-    output_path ||= File.join(File.dirname(__FILE__), 'bin')
+    output_path ||= lambda do
+      path = File.join(File.dirname(__FILE__), 'bin')
+      FileUtils.mkdir(path) unless File.exist?(path)
+      path
+    end.call
+
     ruby_path ||= lambda do
       path = File.join(RbConfig::CONFIG['bindir'], 'ruby')
       raise "you need -r/--ruby-path option : ruby path not found => #{path}" unless File.exist?(path)
